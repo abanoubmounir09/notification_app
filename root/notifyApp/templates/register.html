@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="container">
+  <h2>register (basic) form</h2>
+ 
+
+    <form class="bg-info" action="{% url 'register' %}" method="post" accept-charset="utf-8" style="width: 100%;">
+        {% csrf_token %}
+       
+        <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <label for="password">password</label>
+            <input type="text" class="form-control" id="password" name="password" aria-describedby="emailHelp" placeholder="Enter pass">
+        </div>
+        <button type="submit" value="Submit" class="btn btn-primary" style="width: 20%;margin-left: 2px;">
+          Send message</button>
+          <a class="btn btn-info mt-6" href="{% url 'login' %}">login</a>
+    </form>
+
+
+
+
+</div>
+
+</body>
+</html>
+
+

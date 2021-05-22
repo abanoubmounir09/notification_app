@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>home Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+   <!-- bootstrab -->
+  
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+
+  <nav class="navbar navbar-inverse bg-primary">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">app</a>
+      </div>
+      <ul class="nav navbar-nav">
+     
+      
+
+        {% if user.is_authenticated %}
+        <li><a href="#">{{request.user.username}}</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+        {% endif %}
+        <li><a  href="{% url 'get_notify' %}">
+          <span class="badge bg-light notification-badge">notifications :{{notifications.count}}</span>
+        </a>
+      </li>
+      </ul>
+    </div>
+  </nav> 
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Message</th>
+      </tr>
+    </thead>
+      {% for user in users  %}
+        {% if request.user != user %}
+          <tbody>
+            <tr>
+              <th scope="row">{{ user.id }}</th>
+              <td>{{ user.username }}</td>
+              <td>
+                <form action="{% url 'message' %}"  id="form_message{{ user.id }}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <input type="text" name="message" >
+                <input type="hidden" name='user_id' value='{{ user.id }}'>
+                <button type="submit" value="Submit" class="btn btn-primary">Send message</button>
+              </form>
+              </td>
+            </tr> 
+          </tbody>
+       
+        {% endif %}
+      {% endfor %}
+  </table>
+ 
+ 
+</div>
+
+<div class="container"> 
+      <form class="bg-info" action="{% url 'multimessage' %}" method="post" accept-charset="utf-8" style="width: 100%;">
+        {% csrf_token %}
+        <select name="countries" id="countries" class="multiselect m-1" multiple="multiple" style="width: 60%;" >
+          {% for user in users  %}
+            {% if request.user != user %}
+            <option value={{ user.username }} style="width: 100%;" selected="selected">{{ user.username }}</option>
+             {% endif %}
+            {% endfor %}
+        </select>
+        <input type="text" name="message"  style="width: 15%;margin-left: 2px;" >
+        <button type="submit" value="Submit" class="btn btn-primary" style="width: 20%;margin-left: 2px;">
+          Send message</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>
+
+

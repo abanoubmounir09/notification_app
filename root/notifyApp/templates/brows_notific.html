@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>home Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+   <!-- bootstrab -->
+  
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+
+  <nav class="navbar navbar-expand-sm bg-info navbar-light">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'index' %}">WebSiteName</a>
+      </div>
+      <ul class="nav navbar-nav">
+        {% if user.is_authenticated %}
+        <li><a href="#">{{request.user.username}}</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+        {% endif %}
+        <li><a  href="{% url 'index' %}"></a>
+      </li>
+      </ul>
+    </div>
+  </nav> 
+
+
+<div class="container">
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">notifications</th>
+        <th scope="col">mark as read</th>
+      </tr>
+    </thead>
+      {% for alert in notifications  %}
+       
+          <tbody>
+            <tr>
+              <td rowspan="2">{{alert.verb}} from {{ alert.actor }}:{{ alert.description }}</td>
+              <td>
+                <a  href="{% url 'readMessage' alert.id %}">mark as read</a>
+               
+              </td>
+            </tr> 
+          </tbody>
+       
+      {% endfor %}
+  </table>
+</div>
+
+</body>
+</html>
+
+
